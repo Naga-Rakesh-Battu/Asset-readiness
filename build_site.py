@@ -5,7 +5,7 @@ rm = {r["model"]: r for r in M["risk_model"]}
 base, gb = rm["age-only baseline"], rm["gradient boosting"]
 sp = M["stocking_plan"]; sc, sr = sp["asset_count policy"], sp["model-risk policy"]
 REPO = "https://github.com/Naga-Rakesh-Battu/Asset-readiness"
-PAGES = [("index.html", "Problem"), ("architecture.html", "Architecture"), ("live.html", "Live model"), ("databricks.html", "Databricks"), ("evidence.html", "Evidence"), ("impact.html", "Impact")]
+PAGES = [("index.html", "Problem"), ("architecture.html", "Architecture"), ("databricks.html", "Databricks"), ("live.html", "Live model"), ("evidence.html", "Evidence"), ("impact.html", "Impact")]
 
 def page(fname, title, body, scripts=""):
     nav = "".join(f'<a href="{f}"{" aria-current=\"page\"" if f == fname else ""}>{n}</a>' for f, n in PAGES)
@@ -22,7 +22,7 @@ def page(fname, title, body, scripts=""):
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%230d5f7c%27/%3E%3Cpath d=%27M8 22 L16 8 L24 22 M11 17 H21%27 stroke=%27white%27 stroke-width=%273%27 fill=%27none%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E">
 <meta property="og:title" content="Asset Readiness">
 <meta property="og:description" content="The right part, in the right place, before it breaks. A concept project on synthetic data.">
-<link rel="stylesheet" href="site.css?v=202611241532">
+<link rel="stylesheet" href="site.css?v=202611241552">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -33,9 +33,9 @@ def page(fname, title, body, scripts=""):
 <main class="wrap" id="main">
 {body}
 </main>
-<footer><div class="wrap">Concept project by Charithasri Ande and Naga Rakesh Battu. All utility data, manuals, model results and storm results are synthetic. Market figures are cited on the Problem page. <a href="{REPO}" target="_blank" rel="noopener">Code on GitHub</a>. Site version 2026-11-24 15:32 CT.</div></footer>
+<footer><div class="wrap">Concept project by Charithasri Ande and Naga Rakesh Battu. All utility data, manuals, model results and storm results are synthetic. Market figures are cited on the Problem page. <a href="{REPO}" target="_blank" rel="noopener">Code on GitHub</a>. Site version 2026-11-24 15:52 CT.</div></footer>
 {scripts}
-<script src="site.js?v=202611241532"></script>
+<script src="site.js?v=202611241552"></script>
 </body>
 </html>
 '''
@@ -75,7 +75,7 @@ arch = '''
 <p class="eyebrow">Proposed design</p>
 <h2>Five steps from client data to approved spares</h2>
 <p class="lede">Our sketch of how it fits together. Data flows from top to bottom: client data, a Databricks lakehouse, predicting failures, placing the spares, and a planner approving. The dashed arrow on the left means what failed feeds the next model. The notes on the right show where we think Perficient comes in, which is our proposal for Perficient to correct.</p>
-<figure class="card fig" style="max-width:640px;margin:0 auto"><img src="architecture.jpg?v=202611241532" alt="Hand-drawn architecture. Client data flows down to a Databricks Lakehouse, then predict failures, place the spares, and planner approves. A dashed arrow labeled what failed feeds the next model returns to predict failures. Perficient links the client system to the lakehouse and handles build, test, tune, integrate, run and improve." style="width:100%;height:auto;border-radius:8px;display:block"></figure>
+<figure class="card fig" style="max-width:640px;margin:0 auto"><img src="architecture.jpg?v=202611241552" alt="Hand-drawn architecture. Client data flows down to a Databricks Lakehouse, then predict failures, place the spares, and planner approves. A dashed arrow labeled what failed feeds the next model returns to predict failures. Perficient links the client system to the lakehouse and handles build, test, tune, integrate, run and improve." style="width:100%;height:auto;border-radius:8px;display:block"></figure>
 <h3 class="sec">The detailed version</h3>
 <p class="lede" style="margin-bottom:12px">The same flow with every piece spelled out. Blue is a prototype on synthetic data, orange is proposed and not built, and white is the client's own data.</p>
 <div class="tblwrap" style="background:var(--paper)"><div style="min-width:860px">__SVG__</div></div>
@@ -151,8 +151,6 @@ evidence = f'''
     <li>This is one run of one made-up world. A real pilot would use the client's records.</li>
     <li>The Live model page runs the same trained model in your browser. Its results match the Python results to about 7 decimal places.</li>
   </ul></div>
-<h3 class="sec">Run it yourself</h3>
-<div class="card"><p>The code, data files and 6 tests are in the <a href="{REPO}" target="_blank" rel="noopener">Asset-readiness repository on GitHub</a>. Install the requirements, run <span class="mono">python run_all.py</span>, then <span class="mono">python -m pytest</span>.</p></div>
 '''
 
 databricks = '''
@@ -185,12 +183,6 @@ databricks = '''
   <li>A model registry and a schedule, so retraining runs as a monitored job.</li>
   <li>Real client tables in place of our synthetic ones. Most of the work would be here.</li>
 </ul></div>
-<h3 class="sec">Try it</h3>
-<div class="card"><ol class="steps">
-  <li><p>Make a free Databricks account (Free Edition).</p></li>
-  <li><p>Import <span class="mono">databricks_notebook.py</span> into the workspace.</p></li>
-  <li><p>Attach compute and choose Run all. It takes a few minutes.</p></li>
-</ol><p>This is how we ran it ourselves. It took a few minutes on serverless compute.</p></div>
 '''
 
 impact = '''
@@ -254,7 +246,7 @@ def fill_charts(h):
 out = {
     "index.html": page("index.html", "Problem", index),
     "architecture.html": page("architecture.html", "Architecture", arch.replace("__SVG__", open("architecture_detailed.svg").read())),
-    "live.html": page("live.html", "Live model", live, '<script src="data.js?v=202611241532"></script>'),
+    "live.html": page("live.html", "Live model", live, '<script src="data.js?v=202611241552"></script>'),
     "databricks.html": page("databricks.html", "Databricks", databricks),
     "evidence.html": page("evidence.html", "Evidence", fill_charts(evidence)),
     "impact.html": page("impact.html", "Impact", impact),
