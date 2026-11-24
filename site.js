@@ -23,14 +23,14 @@
       ]},
       { lab: 'Apps', blocks: [
         ['Planner dashboard', 'proto', 'The Live model page is a first version: change the storm, see expected failures and where the spares should go.'],
-        ['Technician assistant', 'built', 'Answers from the manuals and past work orders, and refuses when the answer is not there. This is the part SkyMind already does and has measured. The version here is a small keyword demo.']
+        ['Technician assistant', 'proto', 'Answers from the manuals and past work orders, and refuses when the answer is not there. The version on the Live model page is a small keyword demo on made-up manuals. Not built for real client documents.']
       ]},
       { lab: 'Trust layer', blocks: [
-        ['Held-out evaluation', 'built', 'Test on data the model has never seen and report the misses. SkyMind: 93% on 121 held-out questions, 25 of 25 unanswerable refused. This project: later years held out, plus a plain baseline to beat.'],
-        ['Cost and audit', 'prop', 'Budget caps, a record of every recommendation, and a human approving every order or transfer. Built in SkyMind for AI answers, proposed here for orders.']
+        ['Held-out evaluation', 'proto', 'Test on data the model has never seen and report the misses. This project holds out the later years and compares against a plain age-only rule. Not yet done on real data.'],
+        ['Cost and audit', 'prop', 'Budget caps, a record of every recommendation, and a human approving every order or transfer. Proposed, not built.']
       ]}
     ];
-    var STNAME = { built: 'Built and measured in SkyMind', proto: 'Prototype on synthetic data', prop: 'Proposed, not built' };
+    var STNAME = { proto: 'Prototype on synthetic data', prop: 'Proposed, not built' };
     var STCLS = { built: 'st-built', proto: 'st-sim', prop: 'st-prop' };
     var layersEl = $('layers'), pressed = null;
     ARCH.forEach(function (L, li) {

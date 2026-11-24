@@ -69,10 +69,16 @@ index = '''
 
 arch = '''
 <p class="eyebrow">Proposed design</p>
-<h2>One data foundation, three kinds of intelligence, one trust layer</h2>
-<p class="lede">Tap any block for what it does and whether it exists. The Databricks pieces are described as we understand them, and we would like Perficient's engineers to correct us.</p>
+<h2>Five steps from client data to approved spares</h2>
+<p class="lede">Our sketch of how it fits together. Data flows from top to bottom: client data, a Databricks lakehouse, predicting failures, placing the spares, and a planner approving. The dashed arrow on the left means what failed feeds the next model. The notes on the right show where we think Perficient comes in, which is our proposal for Perficient to correct.</p>
+<figure class="card fig" style="max-width:640px;margin:0 auto"><img src="architecture.jpg" alt="Hand-drawn architecture. Client data flows down to a Databricks Lakehouse, then predict failures, place the spares, and planner approves. A dashed arrow labeled what failed feeds the next model returns to predict failures. Perficient links the client system to the lakehouse and handles build, test, tune, integrate, run and improve." style="width:100%;height:auto;border-radius:8px;display:block"></figure>
+<h3 class="sec">The detailed version</h3>
+<p class="lede" style="margin-bottom:12px">The same flow with every piece spelled out. Blue is a prototype on synthetic data, orange is proposed and not built, and white is the client's own data.</p>
+<div class="tblwrap" style="background:var(--paper)"><div style="min-width:860px">__SVG__</div></div>
+<p class="src"><a href="architecture_detailed.svg" target="_blank" rel="noopener">Open the detailed diagram on its own</a></p>
+<h3 class="sec">Tap a block for more detail</h3>
 <div class="layers" id="layers"></div>
-<div class="legend"><span class="st-built">● Built and measured in SkyMind</span><span class="st-sim">● Prototype on synthetic data</span><span class="st-prop">● Proposed, not built</span></div>
+<div class="legend"><span class="st-sim">● Prototype on synthetic data</span><span class="st-prop">● Proposed, not built</span></div>
 <div class="card detail" id="detail" aria-live="polite"></div>
 '''
 
@@ -96,7 +102,7 @@ live = '''
 <div class="card"><p id="replay"></p></div>
 
 <h3 class="sec">Technician assistant</h3>
-<p class="lede">Answers only from the utility's own manuals and says so when the answer isn't there. This is the SkyMind idea, in a small keyword version. The manuals below are made up for this demo.</p>
+<p class="lede">Answers only from the utility's own manuals and says so when the answer isn't there. This is a small keyword version of the idea. The manuals below are made up for this demo.</p>
 <div class="qrow" id="qchips"></div>
 <form class="qin" id="qform"><input id="qtext" type="text" maxlength="160" placeholder="Ask a question about the manuals…" aria-label="Question for the technician assistant"><button class="btn" type="submit">Ask</button></form>
 <div class="answer" id="answer" aria-live="polite">Pick a question or type your own.</div>
@@ -111,6 +117,14 @@ evidence = f'''
   <div class="card stat"><b>{M["data"]["train_rows"]:,} / {M["data"]["test_rows"]:,}</b><span>Training rows and held-out test rows. The test years come after the training years, so the model cannot peek.</span></div>
   <div class="card stat"><b>{gb["auc"]:.2f}</b><span>Model AUC on held-out years, against {base["auc"]:.2f} for a plain "older means riskier" rule. 0.5 is a coin flip.</span></div>
   <div class="card stat"><b>{round(sc["fill_rate"]*100)}% → {round(sr["fill_rate"]*100)}%</b><span>Share of real failures that had a spare in the same region, when the same spares are placed by predicted risk instead of by asset count.</span></div>
+</div>
+<h3 class="sec">Four pictures from the held-out data</h3>
+<p class="lede" style="margin-bottom:12px">Hover over a bar to see its exact value. All of it is synthetic data.</p>
+<div class="grid g2 figs">
+  <figure class="card fig">__C1__<figcaption>Assets in the model's riskiest tenth failed __TOP__% of the time, and the safest tenth did not fail at all. Small counts, so the exact numbers are rough.</figcaption></figure>
+  <figure class="card fig">__C2__<figcaption>In this made-up data, equipment over 50 fails about __OLD__% a year, against under 1% for equipment under 20.</figcaption></figure>
+  <figure class="card fig">__C3__<figcaption>Placing spares by risk moves them to the South: __S_RISK__ instead of __S_COUNT__. Real failures there were __S_FAIL__ of __TOTAL__.</figcaption></figure>
+  <figure class="card fig">__C4__<figcaption>Age matters most to the model, then load, inspection score, storm severity and oil acidity. Past failures matters least here.</figcaption></figure>
 </div>
 <h3 class="sec">Risk model, scored on the held-out years</h3>
 <div class="tblwrap"><table>
@@ -166,8 +180,8 @@ impact = '''
 <h3 class="sec">What exists today, and what does not</h3>
 <div class="tblwrap wrapcell"><table>
   <tr><th>Piece</th><th>Status</th></tr>
-  <tr><td>Document-grounded assistant that refuses when unsure</td><td class="ok">Built in SkyMind. 93% correct on 121 held-out questions, 25 of 25 unanswerable questions refused, no invented facts among the 9 misses.</td></tr>
-  <tr><td>Honest testing, cost tracking, guardrails</td><td class="ok">Built in SkyMind. Held-out evaluation, budget caps, 14 of 14 known attacks blocked. Prompt injection is reduced, not eliminated.</td></tr>
+  <tr><td>Technician assistant that refuses when unsure</td><td class="warnc">Small keyword demo on made-up manuals. Not built for real client documents.</td></tr>
+  <tr><td>Honest testing</td><td class="ok">Done for the risk model: later years held out, a plain baseline to beat, and 6 tests. Not yet done on real data.</td></tr>
   <tr><td>Failure-risk model and parts forecast</td><td class="warnc">Prototype on synthetic data only, tested on held-out years (see Evidence). Not tried on real utility data.</td></tr>
   <tr><td>Stock-positioning optimizer</td><td class="warnc">Simple allocation tested on synthetic data. A real optimizer with budgets and lead times is not built.</td></tr>
   <tr><td>Data foundation on Databricks</td><td class="short">Not built. Proposed.</td></tr>
@@ -179,11 +193,21 @@ impact = '''
 </ol></div>
 '''
 
+
+import json as _j
+def fill_charts(h):
+    C = _j.load(open("charts.json")); F = _j.load(open("/tmp/chart_facts.json")) if False else _j.load(open("chart_facts.json"))
+    reg = F["reg"]
+    for k, v in C.items(): h = h.replace("__" + k.upper() + "__", v)
+    h = h.replace("__TOP__", f'{F["top_actual"]*100:.0f}').replace("__OLD__", f'{F["old_rate"]*100:.0f}')
+    h = h.replace("__S_RISK__", str(reg["South"][1])).replace("__S_COUNT__", str(reg["South"][0])).replace("__S_FAIL__", str(reg["South"][2]))
+    return h.replace("__TOTAL__", str(sum(v[2] for v in reg.values())))
+
 out = {
     "index.html": page("index.html", "Problem", index),
-    "architecture.html": page("architecture.html", "Architecture", arch),
+    "architecture.html": page("architecture.html", "Architecture", arch.replace("__SVG__", open("architecture_detailed.svg").read())),
     "live.html": page("live.html", "Live model", live, '<script src="data.js"></script>'),
-    "evidence.html": page("evidence.html", "Evidence", evidence),
+    "evidence.html": page("evidence.html", "Evidence", fill_charts(evidence)),
     "impact.html": page("impact.html", "Impact", impact),
 }
 for f, h in out.items():

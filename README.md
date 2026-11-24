@@ -59,7 +59,7 @@ python -m pytest
 
 ## Proposed design (not built)
 
-Sources (asset registry, inspections, work orders, inventory, supplier lead times) feed a governed lakehouse on Databricks, then a risk model, a parts-demand forecast and a stock optimizer, then a planner dashboard and a technician assistant, with an evaluation and audit layer around all of it. The technician assistant and the evaluation layer follow the approach of our SkyMind project, which has measured results on its own data. The Databricks pieces (Delta tables, Unity Catalog, MLflow) are described as we understand them and would need a Databricks engineer's review.
+Sources (asset registry, inspections, work orders, inventory, supplier lead times) feed a governed lakehouse on Databricks, then a risk model, a parts-demand forecast and a stock optimizer, then a planner dashboard and a technician assistant, with an evaluation and audit layer around all of it. The Databricks pieces (Delta tables, Unity Catalog, MLflow) are described as we understand them and would need a Databricks engineer's review.
 
 ## What it could mean for Perficient
 
@@ -76,4 +76,4 @@ Value per year is roughly projects held up by parts, times weeks saved per proje
 
 - All data here is synthetic. No real utility, including any named in conversation, is represented.
 - Similar commercial tools exist. We have not compared against them.
-- The Live model page runs the trained model in the browser. Its scores match the Python scores to about 7 decimal places. The technician assistant on that page is a small keyword demo, not SkyMind.
+- The Live model page runs the trained model in the browser. Its scores match the Python scores to about 7 decimal places. The technician assistant on that page is a small keyword demo on made-up manuals.
