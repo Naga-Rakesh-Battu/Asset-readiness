@@ -26,6 +26,8 @@ Sources are listed in the demo's Problem tab. We read them in secondary articles
 | `test_pipeline.py` | 6 tests: no time leak between train and test, no missing values, parts conserved, model beats baseline, counts consistent |
 | `export_model.py` | Saves the trained model and the 2026 assets to `data.js` so the website can run the model in the browser |
 | `build_site.py` | Writes the five website pages |
+| `make_charts.py`, `charts.json`, `chart_facts.json` | Draw the four charts on the Evidence page from the held-out results |
+| `make_diagram_detailed.py`, `architecture_detailed.svg`, `architecture.jpg` | The detailed architecture diagram and our hand-drawn sketch |
 | `index.html`, `architecture.html`, `live.html`, `evidence.html`, `impact.html`, `site.css`, `site.js`, `data.js` | The website. The Live model page scores 900 assets with the trained model in the browser |
 
 ## Run it
@@ -77,3 +79,10 @@ Value per year is roughly projects held up by parts, times weeks saved per proje
 - All data here is synthetic. No real utility, including any named in conversation, is represented.
 - Similar commercial tools exist. We have not compared against them.
 - The Live model page runs the trained model in the browser. Its scores match the Python scores to about 7 decimal places. The technician assistant on that page is a small keyword demo on made-up manuals.
+
+## Publishing on GitHub Pages
+
+1. Put all files at the top level of the repo (no folders).
+2. Settings, then Pages, then source `main` and the root folder.
+3. The site is at `https://<account>.github.io/<repo>/`.
+4. Check the footer: it shows the site version. If it is not the latest, hard refresh with Ctrl+Shift+R.

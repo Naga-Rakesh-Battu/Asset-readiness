@@ -19,19 +19,23 @@ def page(fname, title, body, scripts=""):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="site.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%230d5f7c%27/%3E%3Cpath d=%27M8 22 L16 8 L24 22 M11 17 H21%27 stroke=%27white%27 stroke-width=%273%27 fill=%27none%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E">
+<meta property="og:title" content="Asset Readiness">
+<meta property="og:description" content="The right part, in the right place, before it breaks. A concept project on synthetic data.">
+<link rel="stylesheet" href="site.css?v=202611241441">
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 <header class="top"><div class="wrap bar">
   <a class="brand" href="index.html"><b>Asset Readiness</b><span class="tag">Concept project · synthetic data</span></a>
   <nav aria-label="Pages">{nav}</nav>
 </div></header>
-<main class="wrap">
+<main class="wrap" id="main">
 {body}
 </main>
-<footer><div class="wrap">Concept project by Charithasri Ande and Naga Rakesh Battu. All utility data, manuals, model results and storm results are synthetic. Market figures are cited on the Problem page. <a href="{REPO}" target="_blank" rel="noopener">Code on GitHub</a>.</div></footer>
+<footer><div class="wrap">Concept project by Charithasri Ande and Naga Rakesh Battu. All utility data, manuals, model results and storm results are synthetic. Market figures are cited on the Problem page. <a href="{REPO}" target="_blank" rel="noopener">Code on GitHub</a>. Site version 2026-11-24 14:41 CT.</div></footer>
 {scripts}
-<script src="site.js"></script>
+<script src="site.js?v=202611241441"></script>
 </body>
 </html>
 '''
@@ -71,7 +75,7 @@ arch = '''
 <p class="eyebrow">Proposed design</p>
 <h2>Five steps from client data to approved spares</h2>
 <p class="lede">Our sketch of how it fits together. Data flows from top to bottom: client data, a Databricks lakehouse, predicting failures, placing the spares, and a planner approving. The dashed arrow on the left means what failed feeds the next model. The notes on the right show where we think Perficient comes in, which is our proposal for Perficient to correct.</p>
-<figure class="card fig" style="max-width:640px;margin:0 auto"><img src="architecture.jpg" alt="Hand-drawn architecture. Client data flows down to a Databricks Lakehouse, then predict failures, place the spares, and planner approves. A dashed arrow labeled what failed feeds the next model returns to predict failures. Perficient links the client system to the lakehouse and handles build, test, tune, integrate, run and improve." style="width:100%;height:auto;border-radius:8px;display:block"></figure>
+<figure class="card fig" style="max-width:640px;margin:0 auto"><img src="architecture.jpg?v=202611241441" alt="Hand-drawn architecture. Client data flows down to a Databricks Lakehouse, then predict failures, place the spares, and planner approves. A dashed arrow labeled what failed feeds the next model returns to predict failures. Perficient links the client system to the lakehouse and handles build, test, tune, integrate, run and improve." style="width:100%;height:auto;border-radius:8px;display:block"></figure>
 <h3 class="sec">The detailed version</h3>
 <p class="lede" style="margin-bottom:12px">The same flow with every piece spelled out. Blue is a prototype on synthetic data, orange is proposed and not built, and white is the client's own data.</p>
 <div class="tblwrap" style="background:var(--paper)"><div style="min-width:860px">__SVG__</div></div>
@@ -206,7 +210,7 @@ def fill_charts(h):
 out = {
     "index.html": page("index.html", "Problem", index),
     "architecture.html": page("architecture.html", "Architecture", arch.replace("__SVG__", open("architecture_detailed.svg").read())),
-    "live.html": page("live.html", "Live model", live, '<script src="data.js"></script>'),
+    "live.html": page("live.html", "Live model", live, '<script src="data.js?v=202611241441"></script>'),
     "evidence.html": page("evidence.html", "Evidence", fill_charts(evidence)),
     "impact.html": page("impact.html", "Impact", impact),
 }

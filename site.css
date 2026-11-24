@@ -118,3 +118,7 @@ footer{padding:22px 0 40px;color:var(--muted);font-size:13.5px;border-top:1px so
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
 .fig{margin:0;padding:14px 16px}.fig .chart{display:block;max-width:100%;height:auto}.fig figcaption{margin-top:10px;color:var(--muted);font-size:14.5px;line-height:1.5}
+
+.skip{position:absolute;left:-999px;top:8px;background:var(--accent);color:#fff;padding:8px 14px;border-radius:8px;z-index:20}
+.skip:focus{left:12px}
+@media print{header.top,.cta,.skip{display:none}body{background:#fff}.card,.statement{break-inside:avoid}main{padding:0}}
