@@ -1,0 +1,62 @@
+{
+  "data": {
+    "train_rows": 5400,
+    "test_rows": 1800,
+    "train_years": "2019-2024",
+    "test_years": "2025-2026",
+    "test_failure_rate": 0.047,
+    "synthetic": true
+  },
+  "risk_model": [
+    {
+      "model": "age-only baseline",
+      "auc": 0.761,
+      "brier": 0.0418,
+      "precision_top10pct": 0.172
+    },
+    {
+      "model": "gradient boosting",
+      "auc": 0.796,
+      "brier": 0.0409,
+      "precision_top10pct": 0.183
+    }
+  ],
+  "feature_importance": [
+    [
+      "age",
+      0.293
+    ],
+    [
+      "load_factor",
+      0.167
+    ],
+    [
+      "inspection_score",
+      0.152
+    ],
+    [
+      "storm_severity",
+      0.152
+    ],
+    [
+      "oil_acidity",
+      0.145
+    ],
+    [
+      "past_failures",
+      0.09
+    ]
+  ],
+  "stocking_plan": {
+    "asset_count policy": {
+      "fill_rate": 0.702,
+      "failures": 84,
+      "idle_spares": 31
+    },
+    "model-risk policy": {
+      "fill_rate": 0.833,
+      "failures": 84,
+      "idle_spares": 20
+    }
+  }
+}
