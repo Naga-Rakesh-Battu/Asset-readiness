@@ -92,4 +92,4 @@ Value per year is roughly projects held up by parts, times weeks saved per proje
 
 `databricks_notebook.py` is the same pipeline as a Databricks notebook (Delta tables for bronze, silver and gold, MLflow tracking, Spark SQL for the spares check). Import it into a workspace and Run all.
 
-Status: written and tested on local Spark (same results as above: AUC 0.753 vs 0.725; 90.5% vs 80% of failures with a local spare). It has not yet been run in a Databricks workspace.
+Status: run end to end on Databricks Free Edition (serverless) on 2026-11-24, and also tested on local Spark. Same results as above: AUC 0.753 vs 0.725; 90.5% vs 80% of failures with a local spare. Synthetic data only.

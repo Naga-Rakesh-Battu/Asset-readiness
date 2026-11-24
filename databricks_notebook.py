@@ -8,7 +8,7 @@
 # MAGIC
 # MAGIC * All data here is **synthetic**. We generate it in the first cell. No real utility data is used.
 # MAGIC * To run: import this file into a Databricks workspace (Workspace, Import), attach a cluster or serverless compute, Run all.
-# MAGIC * Written for Databricks and tested on local Spark. It has not yet been run in a Databricks workspace.
+# MAGIC * Run end to end on Databricks Free Edition (serverless) on 2026-11-24 with the results below, and also tested on local Spark.
 
 # COMMAND ----------
 

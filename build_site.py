@@ -22,7 +22,7 @@ def page(fname, title, body, scripts=""):
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%230d5f7c%27/%3E%3Cpath d=%27M8 22 L16 8 L24 22 M11 17 H21%27 stroke=%27white%27 stroke-width=%273%27 fill=%27none%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E">
 <meta property="og:title" content="Asset Readiness">
 <meta property="og:description" content="The right part, in the right place, before it breaks. A concept project on synthetic data.">
-<link rel="stylesheet" href="site.css?v=202611241522">
+<link rel="stylesheet" href="site.css?v=202611241532">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -33,9 +33,9 @@ def page(fname, title, body, scripts=""):
 <main class="wrap" id="main">
 {body}
 </main>
-<footer><div class="wrap">Concept project by Charithasri Ande and Naga Rakesh Battu. All utility data, manuals, model results and storm results are synthetic. Market figures are cited on the Problem page. <a href="{REPO}" target="_blank" rel="noopener">Code on GitHub</a>. Site version 2026-11-24 15:22 CT.</div></footer>
+<footer><div class="wrap">Concept project by Charithasri Ande and Naga Rakesh Battu. All utility data, manuals, model results and storm results are synthetic. Market figures are cited on the Problem page. <a href="{REPO}" target="_blank" rel="noopener">Code on GitHub</a>. Site version 2026-11-24 15:32 CT.</div></footer>
 {scripts}
-<script src="site.js?v=202611241522"></script>
+<script src="site.js?v=202611241532"></script>
 </body>
 </html>
 '''
@@ -75,7 +75,7 @@ arch = '''
 <p class="eyebrow">Proposed design</p>
 <h2>Five steps from client data to approved spares</h2>
 <p class="lede">Our sketch of how it fits together. Data flows from top to bottom: client data, a Databricks lakehouse, predicting failures, placing the spares, and a planner approving. The dashed arrow on the left means what failed feeds the next model. The notes on the right show where we think Perficient comes in, which is our proposal for Perficient to correct.</p>
-<figure class="card fig" style="max-width:640px;margin:0 auto"><img src="architecture.jpg?v=202611241522" alt="Hand-drawn architecture. Client data flows down to a Databricks Lakehouse, then predict failures, place the spares, and planner approves. A dashed arrow labeled what failed feeds the next model returns to predict failures. Perficient links the client system to the lakehouse and handles build, test, tune, integrate, run and improve." style="width:100%;height:auto;border-radius:8px;display:block"></figure>
+<figure class="card fig" style="max-width:640px;margin:0 auto"><img src="architecture.jpg?v=202611241532" alt="Hand-drawn architecture. Client data flows down to a Databricks Lakehouse, then predict failures, place the spares, and planner approves. A dashed arrow labeled what failed feeds the next model returns to predict failures. Perficient links the client system to the lakehouse and handles build, test, tune, integrate, run and improve." style="width:100%;height:auto;border-radius:8px;display:block"></figure>
 <h3 class="sec">The detailed version</h3>
 <p class="lede" style="margin-bottom:12px">The same flow with every piece spelled out. Blue is a prototype on synthetic data, orange is proposed and not built, and white is the client's own data.</p>
 <div class="tblwrap" style="background:var(--paper)"><div style="min-width:860px">__SVG__</div></div>
@@ -157,10 +157,10 @@ evidence = f'''
 
 databricks = '''
 <p class="eyebrow">Databricks · how the pipeline maps onto the platform</p>
-<h2>The same pipeline, written as a Databricks notebook</h2>
-<p class="lede">We turned the prototype into one notebook that builds the tables, trains the model and checks the stocking plan using Databricks building blocks: Delta tables, MLflow and Spark SQL.</p>
+<h2>The same pipeline, running as a Databricks notebook</h2>
+<p class="lede">We turned the prototype into one notebook, run on Databricks, that builds the tables, trains the model and checks the stocking plan using Databricks building blocks: Delta tables, MLflow and Spark SQL.</p>
 <div class="card"><h3>Status, plainly</h3>
-<p><b>Written and tested on local Spark. Not yet run in a Databricks workspace.</b> Everything below is the plan for how it runs there. We would run it in a free Databricks account before claiming more.</p></div>
+<p><b>Run end to end on Databricks Free Edition (serverless compute) on 11/24/2026.</b> All cells passed, and the results match our local Python and Spark runs. It is still synthetic data, and this is a prototype, not a client deployment.</p></div>
 <h3 class="sec">Step by step</h3>
 <div class="tblwrap wrapcell"><table>
   <tr><th>Step</th><th>What happens</th><th>Databricks piece</th></tr>
@@ -172,13 +172,13 @@ databricks = '''
   <tr><td>6 Spares</td><td>Same total spares, placed by asset count or by model risk.</td><td>PySpark</td></tr>
   <tr><td>7 Check</td><td>Share of real failures that had a spare in the same region.</td><td>Spark SQL</td></tr>
 </table></div>
-<h3 class="sec">What the local Spark run gave</h3>
+<h3 class="sec">What the Databricks run gave</h3>
 <div class="grid g3">
   <div class="card"><h3>Model on held-out years</h3><p>AUC <span class="big-n">0.753</span> against 0.725 for the age-only rule.</p></div>
   <div class="card"><h3>Spread by asset count</h3><p><span class="big-n">80%</span> of failures (369 of 461) had a local spare. 131 spares unused.</p></div>
   <div class="card"><h3>Placed by model risk</h3><p><span class="big-n">90.5%</span> of failures (417 of 461) had a local spare. 83 spares unused.</p></div>
 </div>
-<p class="lede">These match the Evidence page. The data is synthetic and we wrote the failure formula, so this shows the pipeline works, not real-world value.</p>
+<p class="lede">These match the Evidence page and our local runs. The data is synthetic and we wrote the failure formula, so this shows the pipeline works, not real-world value.</p>
 <h3 class="sec">What Databricks would add for a client</h3>
 <div class="card"><ul>
   <li>Governed tables, so the client controls who sees which data (Unity Catalog).</li>
@@ -190,7 +190,7 @@ databricks = '''
   <li><p>Make a free Databricks account (Free Edition).</p></li>
   <li><p>Import <span class="mono">databricks_notebook.py</span> into the workspace.</p></li>
   <li><p>Attach compute and choose Run all. It takes a few minutes.</p></li>
-</ol><p>If a step fails there, we will fix the notebook. Only the local run is verified so far.</p></div>
+</ol><p>This is how we ran it ourselves. It took a few minutes on serverless compute.</p></div>
 '''
 
 impact = '''
@@ -227,7 +227,7 @@ impact = '''
   <tr><td>Honest testing</td><td class="ok">Done for the risk model: later years held out, a plain baseline to beat, and 6 tests. Not yet done on real data.</td></tr>
   <tr><td>Failure-risk model and parts forecast</td><td class="warnc">Prototype on synthetic data only, tested on held-out years (see Evidence). Not tried on real utility data.</td></tr>
   <tr><td>Stock-positioning optimizer</td><td class="warnc">Simple allocation tested on synthetic data. A real optimizer with budgets and lead times is not built.</td></tr>
-  <tr><td>Data foundation on Databricks</td><td class="warnc">Notebook written and tested on local Spark. Not yet run in a Databricks workspace. See the Databricks page.</td></tr>
+  <tr><td>Data foundation on Databricks</td><td class="warnc">Notebook run end to end on Databricks Free Edition, on synthetic data. Not yet on real client data or with Unity Catalog governance. See the Databricks page.</td></tr>
 </table></div>
 <h3 class="sec">Questions for Perficient</h3>
 <div class="card"><ol class="steps">
@@ -254,7 +254,7 @@ def fill_charts(h):
 out = {
     "index.html": page("index.html", "Problem", index),
     "architecture.html": page("architecture.html", "Architecture", arch.replace("__SVG__", open("architecture_detailed.svg").read())),
-    "live.html": page("live.html", "Live model", live, '<script src="data.js?v=202611241522"></script>'),
+    "live.html": page("live.html", "Live model", live, '<script src="data.js?v=202611241532"></script>'),
     "databricks.html": page("databricks.html", "Databricks", databricks),
     "evidence.html": page("evidence.html", "Evidence", fill_charts(evidence)),
     "impact.html": page("impact.html", "Impact", impact),
