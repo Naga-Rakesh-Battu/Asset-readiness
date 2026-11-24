@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Evidence · Asset Readiness</title>
+<meta name="description" content="Asset Readiness: a concept project that predicts which grid equipment will fail and where to keep spare parts. Synthetic data, tested code.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<header class="top"><div class="wrap bar">
+  <a class="brand" href="index.html"><b>Asset Readiness</b><span class="tag">Concept project · synthetic data</span></a>
+  <nav aria-label="Pages"><a href="index.html">Problem</a><a href="architecture.html">Architecture</a><a href="live.html">Live model</a><a href="evidence.html" aria-current="page">Evidence</a><a href="impact.html">Impact</a></nav>
+</div></header>
+<main class="wrap">
+
+<p class="eyebrow">Tested code · synthetic data · held-out years</p>
+<h2>We trained a model and tested it on years it never saw</h2>
+<p class="lede">The code is public. It generates made-up utility data for 900 assets over 8 years, trains on 2019 to 2024, and tests on 2025 and 2026. Everything below comes from running that code. Because we wrote the data generator, these numbers show the pipeline works. They do not show how real equipment behaves.</p>
+<div class="grid g3">
+  <div class="card stat"><b>5,400 / 1,800</b><span>Training rows and held-out test rows. The test years come after the training years, so the model cannot peek.</span></div>
+  <div class="card stat"><b>0.80</b><span>Model AUC on held-out years, against 0.76 for a plain "older means riskier" rule. 0.5 is a coin flip.</span></div>
+  <div class="card stat"><b>70% → 83%</b><span>Share of real failures that had a spare in the same region, when the same spares are placed by predicted risk instead of by asset count.</span></div>
+</div>
+<h3 class="sec">Risk model, scored on the held-out years</h3>
+<div class="tblwrap"><table>
+  <tr><th>Model</th><th>AUC (higher is better)</th><th>Brier error (lower is better)</th><th>Precision, riskiest 10%</th></tr>
+  <tr><td>Age-only rule (baseline)</td><td class="cell">0.761</td><td class="cell">0.0418</td><td class="cell">17.2%</td></tr>
+  <tr><td>Gradient boosting (6 features)</td><td class="cell">0.796</td><td class="cell">0.0409</td><td class="cell">18.3%</td></tr>
+</table></div>
+<h3 class="sec">Stocking plan, replayed on the held-out years</h3>
+<p class="lede" style="margin-bottom:10px">Both policies get the same total spares. They differ only in where the spares go.</p>
+<div class="tblwrap"><table>
+  <tr><th>Policy</th><th>Failures with a local spare</th><th>Spares left unused</th></tr>
+  <tr><td>Spread by asset count</td><td class="cell">70.2% of 84</td><td class="cell">31</td></tr>
+  <tr><td>Placed by predicted risk</td><td class="cell ok">83.3% of 84</td><td class="cell ok">20</td></tr>
+</table></div>
+<div class="note"><b>Read this before quoting a number.</b>
+  <ul style="margin:6px 0 0;padding-left:20px">
+    <li>Only 84 failures in the test years, so the percentages are rough.</li>
+    <li>Regions differ in age and storm exposure by design in our generator, so a risk-based policy is bound to help. A real utility may or may not look like this.</li>
+    <li>This is one run of one made-up world. A real pilot would use the client's records.</li>
+    <li>The Live model page runs the same trained model in your browser. Its results match the Python results to about 7 decimal places.</li>
+  </ul></div>
+<h3 class="sec">Run it yourself</h3>
+<div class="card"><p>The code, data files and 6 tests are in the <a href="https://github.com/Naga-Rakesh-Battu/Asset-readiness" target="_blank" rel="noopener">Asset-readiness repository on GitHub</a>. Install the requirements, run <span class="mono">python run_all.py</span>, then <span class="mono">python -m pytest</span>.</p></div>
+
+</main>
+<footer><div class="wrap">Concept project by Charithasri Ande and Naga Rakesh Battu. All utility data, manuals, model results and storm results are synthetic. Market figures are cited on the Problem page. <a href="https://github.com/Naga-Rakesh-Battu/Asset-readiness" target="_blank" rel="noopener">Code on GitHub</a>.</div></footer>
+
+<script src="site.js"></script>
+</body>
+</html>

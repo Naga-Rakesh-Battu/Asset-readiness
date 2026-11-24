@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Impact · Asset Readiness</title>
+<meta name="description" content="Asset Readiness: a concept project that predicts which grid equipment will fail and where to keep spare parts. Synthetic data, tested code.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<header class="top"><div class="wrap bar">
+  <a class="brand" href="index.html"><b>Asset Readiness</b><span class="tag">Concept project · synthetic data</span></a>
+  <nav aria-label="Pages"><a href="index.html">Problem</a><a href="architecture.html">Architecture</a><a href="live.html">Live model</a><a href="evidence.html">Evidence</a><a href="impact.html" aria-current="page">Impact</a></nav>
+</div></header>
+<main class="wrap">
+
+<p class="eyebrow">What it means for Perficient · our reasoning</p>
+<h2>A repeatable offering, not a one-off project</h2>
+<p class="lede">Four reasons this fits how Perficient already works. These are our own reasoning from public information, and we would like to hear where we are wrong.</p>
+<div class="grid g4">
+  <div class="card"><h3>Repeatable</h3><p>The same core serves energy and utilities, manufacturing and distribution, industries Perficient already covers.</p></div>
+  <div class="card"><h3>Databricks pull-through</h3><p>Sensor, inspection and inventory data keeps growing, and it lives and is governed on the platform.</p></div>
+  <div class="card"><h3>Recurring work</h3><p>Models must be monitored and retrained, so delivery becomes an ongoing service.</p></div>
+  <div class="card"><h3>Proof, not a pilot</h3><p>Every recommendation is tested against what really happened, which backs the claim that the work runs in production.</p></div>
+</div>
+<h3 class="sec">How we would size the value with a client</h3>
+<div class="card">
+  <p class="lede" style="margin-bottom:6px">Value per year = projects held up by parts × weeks saved per project × cost of one week of delay. The inputs below are placeholders to show the method. Replace them with the client's own numbers.</p>
+  <div class="calc">
+    <div><label for="c1">Projects held up by parts, per year</label><input id="c1" type="number" min="0" value="20" inputmode="numeric"></div>
+    <div><label for="c2">Weeks of delay avoided, per project</label><input id="c2" type="number" min="0" value="6" inputmode="numeric"></div>
+    <div><label for="c3">Cost of one week of delay, in dollars</label><input id="c3" type="number" min="0" value="50000" inputmode="numeric"></div>
+  </div>
+  <p>Example result: <span class="big-n" id="val">$6,000,000</span> a year. <b>Placeholder inputs, not a forecast.</b></p>
+</div>
+<h3 class="sec">How it grows</h3>
+<div class="card">
+  <div class="phase"><b>Phase 1</b><p>Prove it small: one asset type in one region, on the client's real records. Test the predictions and the stocking advice on years the model has never seen.</p></div>
+  <div class="phase"><b>Phase 2</b><p>Widen it to more asset types and regions.</p></div>
+  <div class="phase"><b>Phase 3</b><p>Reuse the core in manufacturing and distribution.</p></div>
+  <div class="phase"><b>Phase 4</b><p>Learn across clients, only with client permission and strong privacy controls. This is a governance question we would raise early.</p></div>
+</div>
+<h3 class="sec">What exists today, and what does not</h3>
+<div class="tblwrap wrapcell"><table>
+  <tr><th>Piece</th><th>Status</th></tr>
+  <tr><td>Document-grounded assistant that refuses when unsure</td><td class="ok">Built in SkyMind. 93% correct on 121 held-out questions, 25 of 25 unanswerable questions refused, no invented facts among the 9 misses.</td></tr>
+  <tr><td>Honest testing, cost tracking, guardrails</td><td class="ok">Built in SkyMind. Held-out evaluation, budget caps, 14 of 14 known attacks blocked. Prompt injection is reduced, not eliminated.</td></tr>
+  <tr><td>Failure-risk model and parts forecast</td><td class="warnc">Prototype on synthetic data only, tested on held-out years (see Evidence). Not tried on real utility data.</td></tr>
+  <tr><td>Stock-positioning optimizer</td><td class="warnc">Simple allocation tested on synthetic data. A real optimizer with budgets and lead times is not built.</td></tr>
+  <tr><td>Data foundation on Databricks</td><td class="short">Not built. Proposed.</td></tr>
+</table></div>
+<h3 class="sec">Questions for Perficient</h3>
+<div class="card"><ol class="steps">
+  <li><p>Do you already have a standard way to test AI quality across projects?</p></li>
+  <li><p>Is this the kind of problem you would build a platform for, or does it work better one engagement at a time?</p></li>
+</ol></div>
+
+</main>
+<footer><div class="wrap">Concept project by Charithasri Ande and Naga Rakesh Battu. All utility data, manuals, model results and storm results are synthetic. Market figures are cited on the Problem page. <a href="https://github.com/Naga-Rakesh-Battu/Asset-readiness" target="_blank" rel="noopener">Code on GitHub</a>.</div></footer>
+
+<script src="site.js"></script>
+</body>
+</html>

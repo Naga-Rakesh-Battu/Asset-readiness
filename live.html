@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Live model · Asset Readiness</title>
+<meta name="description" content="Asset Readiness: a concept project that predicts which grid equipment will fail and where to keep spare parts. Synthetic data, tested code.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<header class="top"><div class="wrap bar">
+  <a class="brand" href="index.html"><b>Asset Readiness</b><span class="tag">Concept project · synthetic data</span></a>
+  <nav aria-label="Pages"><a href="index.html">Problem</a><a href="architecture.html">Architecture</a><a href="live.html" aria-current="page">Live model</a><a href="evidence.html">Evidence</a><a href="impact.html">Impact</a></nav>
+</div></header>
+<main class="wrap">
+
+<p class="eyebrow">Live · the trained model runs in your browser · synthetic data</p>
+<h2>Storm planner</h2>
+<p class="lede">This page scores 900 made-up assets with the same gradient-boosting model that was trained in Python and tested on held-out years. Move a region's storm slider and the model re-scores every asset. The planner then shows where a fixed number of spares should go.</p>
+<div class="card"><div class="ctl">
+  <div><label for="sl-North">North storm severity <span class="mono" id="sv-North"></span></label><input id="sl-North" type="range" min="0" max="100" step="1" value="10"></div>
+  <div><label for="sl-South">South storm severity <span class="mono" id="sv-South"></span></label><input id="sl-South" type="range" min="0" max="100" step="1" value="30"></div>
+  <div><label for="sl-East">East storm severity <span class="mono" id="sv-East"></span></label><input id="sl-East" type="range" min="0" max="100" step="1" value="15"></div>
+</div>
+<div class="cta" style="margin-top:16px"><button class="btn" id="hurr" type="button">Try a South hurricane</button><button class="btn ghost" id="reset" type="button">Back to the 2026 data</button></div></div>
+<div class="kpis" id="kpis"></div>
+<p class="lede" style="margin-bottom:0">Fill rate comes from 300 simulated years drawn from the model's risk scores. Both policies get the same total spares.</p>
+<h3 class="sec">Where the spares should go</h3>
+<div class="tblwrap"><table id="matrix" aria-label="Spares by part and region"></table></div>
+<h3 class="sec">Assets most at risk</h3>
+<div class="tblwrap"><table id="assets" aria-label="Assets by risk"></table></div>
+<h3 class="sec">Check against what happened in 2026</h3>
+<div class="card"><p id="replay"></p></div>
+
+<h3 class="sec">Technician assistant</h3>
+<p class="lede">Answers only from the utility's own manuals and says so when the answer isn't there. This is the SkyMind idea, in a small keyword version. The manuals below are made up for this demo.</p>
+<div class="qrow" id="qchips"></div>
+<form class="qin" id="qform"><input id="qtext" type="text" maxlength="160" placeholder="Ask a question about the manuals…" aria-label="Question for the technician assistant"><button class="btn" type="submit">Ask</button></form>
+<div class="answer" id="answer" aria-live="polite">Pick a question or type your own.</div>
+<details class="manuals"><summary>See the demo manuals</summary><ul id="manuals"></ul></details>
+
+</main>
+<footer><div class="wrap">Concept project by Charithasri Ande and Naga Rakesh Battu. All utility data, manuals, model results and storm results are synthetic. Market figures are cited on the Problem page. <a href="https://github.com/Naga-Rakesh-Battu/Asset-readiness" target="_blank" rel="noopener">Code on GitHub</a>.</div></footer>
+<script src="data.js"></script>
+<script src="site.js"></script>
+</body>
+</html>

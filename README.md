@@ -24,13 +24,17 @@ Sources are listed in the demo's Problem tab. We read them in secondary articles
 | `run_all.py` | Runs everything and writes `metrics.json` |
 | `train.csv`, `test.csv` | The generated train and test sets |
 | `test_pipeline.py` | 6 tests: no time leak between train and test, no missing values, parts conserved, model beats baseline, counts consistent |
-| `index.html` | The demo website: problem, architecture, storm planner, evidence, impact |
+| `export_model.py` | Saves the trained model and the 2026 assets to `data.js` so the website can run the model in the browser |
+| `build_site.py` | Writes the five website pages |
+| `index.html`, `architecture.html`, `live.html`, `evidence.html`, `impact.html`, `site.css`, `site.js`, `data.js` | The website. The Live model page scores 900 assets with the trained model in the browser |
 
 ## Run it
 
 ```
 pip install -r requirements.txt
 python run_all.py
+python export_model.py
+python build_site.py
 python -m pytest
 ```
 
@@ -72,4 +76,4 @@ Value per year is roughly projects held up by parts, times weeks saved per proje
 
 - All data here is synthetic. No real utility, including any named in conversation, is represented.
 - Similar commercial tools exist. We have not compared against them.
-- The storm planner in the demo uses simple rules, not the trained model.
+- The Live model page runs the trained model in the browser. Its scores match the Python scores to about 7 decimal places. The technician assistant on that page is a small keyword demo, not SkyMind.
