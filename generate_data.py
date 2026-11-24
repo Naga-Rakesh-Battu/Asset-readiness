@@ -18,7 +18,7 @@ YEARS = list(range(2019, 2027))  # 2019-2024 train, 2025-2026 test (later years,
 FEATURES = ["age", "load_factor", "inspection_score", "oil_acidity", "past_failures", "storm_severity"]
 
 
-def make_assets(n=900, seed=7):
+def make_assets(n=5000, seed=7):
     rng = np.random.default_rng(seed)
     region = rng.choice(REGIONS, n, p=[0.30, 0.38, 0.32])
     part = rng.choice(list(PARTS), n, p=[v[0] for v in PARTS.values()])

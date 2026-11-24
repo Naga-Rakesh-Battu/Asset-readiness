@@ -130,7 +130,7 @@
       var p = risks(storm), cells = build(p), mc = monteCarlo(cells, p, 300);
       var k = $('kpis'); k.textContent = '';
       function kpi(l, v, s) { var d = el('div', 'kpi'); d.appendChild(el('span', null, l)); d.appendChild(el('b', null, v)); d.appendChild(el('small', null, s)); k.appendChild(d); }
-      kpi('Expected failures', mc.fails.toFixed(1), 'per year, all 900 assets');
+      kpi('Expected failures', mc.fails.toFixed(1), 'per year, all 5,000 assets');
       kpi('Spares placed by asset count', pct(mc.fillCount), 'of failures had a local spare');
       kpi('Spares placed by model risk', pct(mc.fillRisk), 'of failures had a local spare');
       kpi('Unused spares, model risk', mc.idleRisk.toFixed(1), 'vs ' + mc.idleCount.toFixed(1) + ' by asset count');
@@ -167,7 +167,7 @@
           tot += f; cov[0] += Math.min(c.stockCount[r], f); cov[1] += Math.min(c.stockRisk[r], f);
         }
       });
-      $('replay').textContent = 'In the 2026 rows of the held-out data, ' + tot + ' assets actually failed. With the same spares, placing them by asset count gave ' + cov[0] + ' of those failures a local spare (' + pct(cov[0] / tot) + '), and placing them by model risk gave ' + cov[1] + ' (' + pct(cov[1] / tot) + '). One year and a few dozen failures, so treat it as a rough check.';
+      $('replay').textContent = 'In the 2026 rows of the held-out data, ' + tot + ' assets actually failed. With the same spares, placing them by asset count gave ' + cov[0] + ' of those failures a local spare (' + pct(cov[0] / tot) + '), and placing them by model risk gave ' + cov[1] + ' (' + pct(cov[1] / tot) + '). One year only, so treat it as a rough check.';
     })();
     REG.forEach(function (r) {
       $('sl-' + r).value = Math.round(actualStorm[r] * 100); $('sl-' + r).addEventListener('input', render);

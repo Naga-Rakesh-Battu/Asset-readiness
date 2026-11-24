@@ -18,7 +18,7 @@ Sources are listed in the demo's Problem tab. We read them in secondary articles
 
 | Path | What it does |
 |---|---|
-| `generate_data.py` | Makes **synthetic** asset data: 900 assets, 8 years, failures drawn from a known formula plus noise |
+| `generate_data.py` | Makes **synthetic** asset data: 5,000 assets, 8 years, failures drawn from a known formula plus noise |
 | `train.py` | Trains a failure-risk model on 2019 to 2024, scores it on 2025 to 2026 against an age-only baseline |
 | `plan.py` | Places the same number of spares two ways (by asset count, by predicted risk) and replays the held-out years |
 | `run_all.py` | Runs everything and writes `metrics.json` |
@@ -28,7 +28,7 @@ Sources are listed in the demo's Problem tab. We read them in secondary articles
 | `build_site.py` | Writes the five website pages |
 | `make_charts.py`, `charts.json`, `chart_facts.json` | Draw the four charts on the Evidence page from the held-out results |
 | `make_diagram_detailed.py`, `architecture_detailed.svg`, `architecture.jpg` | The detailed architecture diagram and our hand-drawn sketch |
-| `index.html`, `architecture.html`, `live.html`, `evidence.html`, `impact.html`, `site.css`, `site.js`, `data.js` | The website. The Live model page scores 900 assets with the trained model in the browser |
+| `index.html`, `architecture.html`, `live.html`, `evidence.html`, `impact.html`, `site.css`, `site.js`, `data.js` | The website. The Live model page scores 5,000 assets with the trained model in the browser |
 
 ## Run it
 
@@ -44,19 +44,19 @@ python -m pytest
 
 | Model | AUC | Brier error | Precision, riskiest 10% |
 |---|---|---|---|
-| Age-only rule | 0.761 | 0.0418 | 17.2% |
-| Gradient boosting | 0.796 | 0.0409 | 18.3% |
+| Age-only rule | 0.725 | 0.0422 | 14.5% |
+| Gradient boosting | 0.753 | 0.0427 | 15.9% |
 
 | Stocking policy (same total spares) | Failures with a local spare | Spares left unused |
 |---|---|---|
-| Spread by asset count | 70.2% of 84 | 31 |
-| Placed by predicted risk | 83.3% of 84 | 20 |
+| Spread by asset count | 80.0% of 461 | 131 |
+| Placed by predicted risk | 90.5% of 461 | 83 |
 
 ## What these numbers do and do not show
 
 - They show the pipeline works end to end: data, time-based split, model, baseline, plan, replay, tests.
 - They do **not** show real-world value. We wrote the data generator, and we made the regions differ in age and storm exposure, so a risk-based policy is bound to help here.
-- The test years hold only 84 failures, so the percentages are rough.
+- The test years hold 461 failures: enough for a rough read, not for fine claims. The boosted model ranks better but its Brier error is no better than the age-only rule.
 - This is one run of one made-up world. The next step is a pilot on a client's real records.
 
 ## Proposed design (not built)
@@ -92,4 +92,4 @@ Value per year is roughly projects held up by parts, times weeks saved per proje
 
 `databricks_notebook.py` is the same pipeline as a Databricks notebook (Delta tables for bronze, silver and gold, MLflow tracking, Spark SQL for the spares check). Import it into a workspace and Run all.
 
-Status: written and tested on local Spark (same results as above: AUC 0.796 vs 0.761; 83% vs 70% of failures with a local spare). It has not yet been run in a Databricks workspace.
+Status: written and tested on local Spark (same results as above: AUC 0.753 vs 0.725; 90.5% vs 80% of failures with a local spare). It has not yet been run in a Databricks workspace.

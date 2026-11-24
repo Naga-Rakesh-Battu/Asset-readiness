@@ -22,7 +22,7 @@ def page(fname, title, body, scripts=""):
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%230d5f7c%27/%3E%3Cpath d=%27M8 22 L16 8 L24 22 M11 17 H21%27 stroke=%27white%27 stroke-width=%273%27 fill=%27none%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E">
 <meta property="og:title" content="Asset Readiness">
 <meta property="og:description" content="The right part, in the right place, before it breaks. A concept project on synthetic data.">
-<link rel="stylesheet" href="site.css?v=202611241455">
+<link rel="stylesheet" href="site.css?v=202611241522">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -33,9 +33,9 @@ def page(fname, title, body, scripts=""):
 <main class="wrap" id="main">
 {body}
 </main>
-<footer><div class="wrap">Concept project by Charithasri Ande and Naga Rakesh Battu. All utility data, manuals, model results and storm results are synthetic. Market figures are cited on the Problem page. <a href="{REPO}" target="_blank" rel="noopener">Code on GitHub</a>. Site version 2026-11-24 14:55 CT.</div></footer>
+<footer><div class="wrap">Concept project by Charithasri Ande and Naga Rakesh Battu. All utility data, manuals, model results and storm results are synthetic. Market figures are cited on the Problem page. <a href="{REPO}" target="_blank" rel="noopener">Code on GitHub</a>. Site version 2026-11-24 15:22 CT.</div></footer>
 {scripts}
-<script src="site.js?v=202611241455"></script>
+<script src="site.js?v=202611241522"></script>
 </body>
 </html>
 '''
@@ -75,7 +75,7 @@ arch = '''
 <p class="eyebrow">Proposed design</p>
 <h2>Five steps from client data to approved spares</h2>
 <p class="lede">Our sketch of how it fits together. Data flows from top to bottom: client data, a Databricks lakehouse, predicting failures, placing the spares, and a planner approving. The dashed arrow on the left means what failed feeds the next model. The notes on the right show where we think Perficient comes in, which is our proposal for Perficient to correct.</p>
-<figure class="card fig" style="max-width:640px;margin:0 auto"><img src="architecture.jpg?v=202611241455" alt="Hand-drawn architecture. Client data flows down to a Databricks Lakehouse, then predict failures, place the spares, and planner approves. A dashed arrow labeled what failed feeds the next model returns to predict failures. Perficient links the client system to the lakehouse and handles build, test, tune, integrate, run and improve." style="width:100%;height:auto;border-radius:8px;display:block"></figure>
+<figure class="card fig" style="max-width:640px;margin:0 auto"><img src="architecture.jpg?v=202611241522" alt="Hand-drawn architecture. Client data flows down to a Databricks Lakehouse, then predict failures, place the spares, and planner approves. A dashed arrow labeled what failed feeds the next model returns to predict failures. Perficient links the client system to the lakehouse and handles build, test, tune, integrate, run and improve." style="width:100%;height:auto;border-radius:8px;display:block"></figure>
 <h3 class="sec">The detailed version</h3>
 <p class="lede" style="margin-bottom:12px">The same flow with every piece spelled out. Blue is a prototype on synthetic data, orange is proposed and not built, and white is the client's own data.</p>
 <div class="tblwrap" style="background:var(--paper)"><div style="min-width:860px">__SVG__</div></div>
@@ -89,7 +89,7 @@ arch = '''
 live = '''
 <p class="eyebrow">Live · the trained model runs in your browser · synthetic data</p>
 <h2>Storm planner</h2>
-<p class="lede">This page scores 900 made-up assets with the same gradient-boosting model that was trained in Python and tested on held-out years. Move a region's storm slider and the model re-scores every asset. The planner then shows where a fixed number of spares should go.</p>
+<p class="lede">This page scores 5,000 made-up assets with the same gradient-boosting model that was trained in Python and tested on held-out years. Move a region's storm slider and the model re-scores every asset. The planner then shows where a fixed number of spares should go.</p>
 <div class="card"><div class="ctl">
   <div><label for="sl-North">North storm severity <span class="mono" id="sv-North"></span></label><input id="sl-North" type="range" min="0" max="100" step="1" value="10"></div>
   <div><label for="sl-South">South storm severity <span class="mono" id="sv-South"></span></label><input id="sl-South" type="range" min="0" max="100" step="1" value="30"></div>
@@ -116,7 +116,7 @@ live = '''
 evidence = f'''
 <p class="eyebrow">Tested code · synthetic data · held-out years</p>
 <h2>We trained a model and tested it on years it never saw</h2>
-<p class="lede">The code is public. It generates made-up utility data for 900 assets over 8 years, trains on 2019 to 2024, and tests on 2025 and 2026. Everything below comes from running that code. Because we wrote the data generator, these numbers show the pipeline works. They do not show how real equipment behaves.</p>
+<p class="lede">The code is public. It generates made-up utility data for 5,000 assets over 8 years (40,000 asset-years), trains on 2019 to 2024, and tests on 2025 and 2026. Everything below comes from running that code. Because we wrote the data generator, these numbers show the pipeline works. They do not show how real equipment behaves.</p>
 <div class="grid g3">
   <div class="card stat"><b>{M["data"]["train_rows"]:,} / {M["data"]["test_rows"]:,}</b><span>Training rows and held-out test rows. The test years come after the training years, so the model cannot peek.</span></div>
   <div class="card stat"><b>{gb["auc"]:.2f}</b><span>Model AUC on held-out years, against {base["auc"]:.2f} for a plain "older means riskier" rule. 0.5 is a coin flip.</span></div>
@@ -125,10 +125,10 @@ evidence = f'''
 <h3 class="sec">Four pictures from the held-out data</h3>
 <p class="lede" style="margin-bottom:12px">Hover over a bar to see its exact value. All of it is synthetic data.</p>
 <div class="grid g2 figs">
-  <figure class="card fig">__C1__<figcaption>Assets in the model's riskiest tenth failed __TOP__% of the time, and the safest tenth did not fail at all. Small counts, so the exact numbers are rough.</figcaption></figure>
+  <figure class="card fig">__C1__<figcaption>Assets in the model's riskiest tenth failed __TOP__% of the time, and the safest tenth failed __BOT__%.</figcaption></figure>
   <figure class="card fig">__C2__<figcaption>In this made-up data, equipment over 50 fails about __OLD__% a year, against under 1% for equipment under 20.</figcaption></figure>
   <figure class="card fig">__C3__<figcaption>Placing spares by risk moves them to the South: __S_RISK__ instead of __S_COUNT__. Real failures there were __S_FAIL__ of __TOTAL__.</figcaption></figure>
-  <figure class="card fig">__C4__<figcaption>Age matters most to the model, then load, inspection score, storm severity and oil acidity. Past failures matters least here.</figcaption></figure>
+  <figure class="card fig">__C4__<figcaption>__IMPTXT__</figcaption></figure>
 </div>
 <h3 class="sec">Risk model, scored on the held-out years</h3>
 <div class="tblwrap"><table>
@@ -145,7 +145,8 @@ evidence = f'''
 </table></div>
 <div class="note"><b>Read this before quoting a number.</b>
   <ul style="margin:6px 0 0;padding-left:20px">
-    <li>Only {sc["failures"]} failures in the test years, so the percentages are rough.</li>
+    <li>{sc["failures"]} failures in the test years. Enough for a rough read, not for fine claims.</li>
+    <li>The boosted model ranks assets better (AUC, precision) but its Brier error is no better than the age-only rule, so its risk numbers are not better calibrated.</li>
     <li>Regions differ in age and storm exposure by design in our generator, so a risk-based policy is bound to help. A real utility may or may not look like this.</li>
     <li>This is one run of one made-up world. A real pilot would use the client's records.</li>
     <li>The Live model page runs the same trained model in your browser. Its results match the Python results to about 7 decimal places.</li>
@@ -163,7 +164,7 @@ databricks = '''
 <h3 class="sec">Step by step</h3>
 <div class="tblwrap wrapcell"><table>
   <tr><th>Step</th><th>What happens</th><th>Databricks piece</th></tr>
-  <tr><td>1 Bronze</td><td>Raw asset history lands as is: 900 assets, 8 years, 7,200 rows.</td><td>Delta table</td></tr>
+  <tr><td>1 Bronze</td><td>Raw asset history lands as is: 5,000 assets, 8 years, 40,000 rows.</td><td>Delta table</td></tr>
   <tr><td>2 Silver</td><td>Checks for duplicates and missing values. The notebook stops if a check fails.</td><td>Delta table plus assertions</td></tr>
   <tr><td>3 Gold</td><td>Split by time: train 2019 to 2024, test 2025 and 2026.</td><td>Delta tables</td></tr>
   <tr><td>4 Model</td><td>Age-only baseline and gradient boosting, with settings and scores recorded for each run.</td><td>MLflow tracking</td></tr>
@@ -173,9 +174,9 @@ databricks = '''
 </table></div>
 <h3 class="sec">What the local Spark run gave</h3>
 <div class="grid g3">
-  <div class="card"><h3>Model on held-out years</h3><p>AUC <span class="big-n">0.796</span> against 0.761 for the age-only rule.</p></div>
-  <div class="card"><h3>Spread by asset count</h3><p><span class="big-n">70%</span> of failures (59 of 84) had a local spare. 31 spares unused.</p></div>
-  <div class="card"><h3>Placed by model risk</h3><p><span class="big-n">83%</span> of failures (70 of 84) had a local spare. 20 spares unused.</p></div>
+  <div class="card"><h3>Model on held-out years</h3><p>AUC <span class="big-n">0.753</span> against 0.725 for the age-only rule.</p></div>
+  <div class="card"><h3>Spread by asset count</h3><p><span class="big-n">80%</span> of failures (369 of 461) had a local spare. 131 spares unused.</p></div>
+  <div class="card"><h3>Placed by model risk</h3><p><span class="big-n">90.5%</span> of failures (417 of 461) had a local spare. 83 spares unused.</p></div>
 </div>
 <p class="lede">These match the Evidence page. The data is synthetic and we wrote the failure formula, so this shows the pipeline works, not real-world value.</p>
 <h3 class="sec">What Databricks would add for a client</h3>
@@ -243,12 +244,17 @@ def fill_charts(h):
     for k, v in C.items(): h = h.replace("__" + k.upper() + "__", v)
     h = h.replace("__TOP__", f'{F["top_actual"]*100:.0f}').replace("__OLD__", f'{F["old_rate"]*100:.0f}')
     h = h.replace("__S_RISK__", str(reg["South"][1])).replace("__S_COUNT__", str(reg["South"][0])).replace("__S_FAIL__", str(reg["South"][2]))
+    imp = sorted(M["feature_importance"].items(), key=lambda kv: -kv[1]) if isinstance(M["feature_importance"], dict) else M["feature_importance"]
+    nm = {"age":"age","storm_severity":"storm severity","oil_acidity":"oil acidity","inspection_score":"inspection score","past_failures":"past failures","load_factor":"load"}
+    names = [nm[k] for k, _ in imp]
+    h = h.replace("__IMPTXT__", "Age matters most to the model, then " + ", ".join(names[1:-1]) + ". " + names[-1].capitalize() + " matters least here.")
+    h = h.replace("__BOT__", f'{F["bottom_actual"]*100:.1f}')
     return h.replace("__TOTAL__", str(sum(v[2] for v in reg.values())))
 
 out = {
     "index.html": page("index.html", "Problem", index),
     "architecture.html": page("architecture.html", "Architecture", arch.replace("__SVG__", open("architecture_detailed.svg").read())),
-    "live.html": page("live.html", "Live model", live, '<script src="data.js?v=202611241455"></script>'),
+    "live.html": page("live.html", "Live model", live, '<script src="data.js?v=202611241522"></script>'),
     "databricks.html": page("databricks.html", "Databricks", databricks),
     "evidence.html": page("evidence.html", "Evidence", fill_charts(evidence)),
     "impact.html": page("impact.html", "Impact", impact),

@@ -11,7 +11,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%230d5f7c%27/%3E%3Cpath d=%27M8 22 L16 8 L24 22 M11 17 H21%27 stroke=%27white%27 stroke-width=%273%27 fill=%27none%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E">
 <meta property="og:title" content="Asset Readiness">
 <meta property="og:description" content="The right part, in the right place, before it breaks. A concept project on synthetic data.">
-<link rel="stylesheet" href="site.css?v=202611241455">
+<link rel="stylesheet" href="site.css?v=202611241522">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -29,7 +29,7 @@
 <h3 class="sec">Step by step</h3>
 <div class="tblwrap wrapcell"><table>
   <tr><th>Step</th><th>What happens</th><th>Databricks piece</th></tr>
-  <tr><td>1 Bronze</td><td>Raw asset history lands as is: 900 assets, 8 years, 7,200 rows.</td><td>Delta table</td></tr>
+  <tr><td>1 Bronze</td><td>Raw asset history lands as is: 5,000 assets, 8 years, 40,000 rows.</td><td>Delta table</td></tr>
   <tr><td>2 Silver</td><td>Checks for duplicates and missing values. The notebook stops if a check fails.</td><td>Delta table plus assertions</td></tr>
   <tr><td>3 Gold</td><td>Split by time: train 2019 to 2024, test 2025 and 2026.</td><td>Delta tables</td></tr>
   <tr><td>4 Model</td><td>Age-only baseline and gradient boosting, with settings and scores recorded for each run.</td><td>MLflow tracking</td></tr>
@@ -39,9 +39,9 @@
 </table></div>
 <h3 class="sec">What the local Spark run gave</h3>
 <div class="grid g3">
-  <div class="card"><h3>Model on held-out years</h3><p>AUC <span class="big-n">0.796</span> against 0.761 for the age-only rule.</p></div>
-  <div class="card"><h3>Spread by asset count</h3><p><span class="big-n">70%</span> of failures (59 of 84) had a local spare. 31 spares unused.</p></div>
-  <div class="card"><h3>Placed by model risk</h3><p><span class="big-n">83%</span> of failures (70 of 84) had a local spare. 20 spares unused.</p></div>
+  <div class="card"><h3>Model on held-out years</h3><p>AUC <span class="big-n">0.753</span> against 0.725 for the age-only rule.</p></div>
+  <div class="card"><h3>Spread by asset count</h3><p><span class="big-n">80%</span> of failures (369 of 461) had a local spare. 131 spares unused.</p></div>
+  <div class="card"><h3>Placed by model risk</h3><p><span class="big-n">90.5%</span> of failures (417 of 461) had a local spare. 83 spares unused.</p></div>
 </div>
 <p class="lede">These match the Evidence page. The data is synthetic and we wrote the failure formula, so this shows the pipeline works, not real-world value.</p>
 <h3 class="sec">What Databricks would add for a client</h3>
@@ -58,8 +58,8 @@
 </ol><p>If a step fails there, we will fix the notebook. Only the local run is verified so far.</p></div>
 
 </main>
-<footer><div class="wrap">Concept project by Charithasri Ande and Naga Rakesh Battu. All utility data, manuals, model results and storm results are synthetic. Market figures are cited on the Problem page. <a href="https://github.com/Naga-Rakesh-Battu/Asset-readiness" target="_blank" rel="noopener">Code on GitHub</a>. Site version 2026-11-24 14:55 CT.</div></footer>
+<footer><div class="wrap">Concept project by Charithasri Ande and Naga Rakesh Battu. All utility data, manuals, model results and storm results are synthetic. Market figures are cited on the Problem page. <a href="https://github.com/Naga-Rakesh-Battu/Asset-readiness" target="_blank" rel="noopener">Code on GitHub</a>. Site version 2026-11-24 15:22 CT.</div></footer>
 
-<script src="site.js?v=202611241455"></script>
+<script src="site.js?v=202611241522"></script>
 </body>
 </html>

@@ -1,62 +1,62 @@
 {
   "data": {
-    "train_rows": 5400,
-    "test_rows": 1800,
+    "train_rows": 30000,
+    "test_rows": 10000,
     "train_years": "2019-2024",
     "test_years": "2025-2026",
-    "test_failure_rate": 0.047,
+    "test_failure_rate": 0.046,
     "synthetic": true
   },
   "risk_model": [
     {
       "model": "age-only baseline",
-      "auc": 0.761,
-      "brier": 0.0418,
-      "precision_top10pct": 0.172
+      "auc": 0.725,
+      "brier": 0.0422,
+      "precision_top10pct": 0.145
     },
     {
       "model": "gradient boosting",
-      "auc": 0.796,
-      "brier": 0.0409,
-      "precision_top10pct": 0.183
+      "auc": 0.753,
+      "brier": 0.0427,
+      "precision_top10pct": 0.159
     }
   ],
   "feature_importance": [
     [
       "age",
-      0.293
-    ],
-    [
-      "load_factor",
-      0.167
-    ],
-    [
-      "inspection_score",
-      0.152
+      0.326
     ],
     [
       "storm_severity",
-      0.152
+      0.279
     ],
     [
       "oil_acidity",
-      0.145
+      0.118
+    ],
+    [
+      "inspection_score",
+      0.107
     ],
     [
       "past_failures",
-      0.09
+      0.092
+    ],
+    [
+      "load_factor",
+      0.079
     ]
   ],
   "stocking_plan": {
     "asset_count policy": {
-      "fill_rate": 0.702,
-      "failures": 84,
-      "idle_spares": 31
+      "fill_rate": 0.8,
+      "failures": 461,
+      "idle_spares": 131
     },
     "model-risk policy": {
-      "fill_rate": 0.833,
-      "failures": 84,
-      "idle_spares": 20
+      "fill_rate": 0.905,
+      "failures": 461,
+      "idle_spares": 83
     }
   }
 }

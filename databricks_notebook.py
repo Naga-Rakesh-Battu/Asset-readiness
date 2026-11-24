@@ -36,7 +36,7 @@ print("Running on Databricks" if ON_DATABRICKS else "Running on local Spark", "|
 
 # MAGIC %md
 # MAGIC ## 1. Bronze: raw synthetic asset history
-# MAGIC 900 assets over 8 years. Failures are drawn from a known formula plus noise, so results show the pipeline works,
+# MAGIC 5,000 assets over 8 years. Failures are drawn from a known formula plus noise, so results show the pipeline works,
 # MAGIC not how real equipment behaves.
 
 # COMMAND ----------
@@ -47,7 +47,7 @@ YEARS = list(range(2019, 2027))
 FEATURES = ["age", "load_factor", "inspection_score", "oil_acidity", "past_failures", "storm_severity"]
 
 
-def make_history(seed=7, n=900):
+def make_history(seed=7, n=5000):
     rng = np.random.default_rng(seed)
     region = rng.choice(REGIONS, n, p=[0.30, 0.38, 0.32])
     part = rng.choice(list(PARTS), n, p=[v[0] for v in PARTS.values()])
