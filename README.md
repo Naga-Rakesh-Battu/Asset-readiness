@@ -86,3 +86,10 @@ Value per year is roughly projects held up by parts, times weeks saved per proje
 2. Settings, then Pages, then source `main` and the root folder.
 3. The site is at `https://<account>.github.io/<repo>/`.
 4. Check the footer: it shows the site version. If it is not the latest, hard refresh with Ctrl+Shift+R.
+
+
+## Databricks notebook
+
+`databricks_notebook.py` is the same pipeline as a Databricks notebook (Delta tables for bronze, silver and gold, MLflow tracking, Spark SQL for the spares check). Import it into a workspace and Run all.
+
+Status: written and tested on local Spark (same results as above: AUC 0.796 vs 0.761; 83% vs 70% of failures with a local spare). It has not yet been run in a Databricks workspace.

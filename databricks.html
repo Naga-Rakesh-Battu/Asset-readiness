@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Databricks · Asset Readiness</title>
+<meta name="description" content="Asset Readiness: a concept project that predicts which grid equipment will fail and where to keep spare parts. Synthetic data, tested code.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%230d5f7c%27/%3E%3Cpath d=%27M8 22 L16 8 L24 22 M11 17 H21%27 stroke=%27white%27 stroke-width=%273%27 fill=%27none%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E">
+<meta property="og:title" content="Asset Readiness">
+<meta property="og:description" content="The right part, in the right place, before it breaks. A concept project on synthetic data.">
+<link rel="stylesheet" href="site.css?v=202611241455">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap bar">
+  <a class="brand" href="index.html"><b>Asset Readiness</b><span class="tag">Concept project · synthetic data</span></a>
+  <nav aria-label="Pages"><a href="index.html">Problem</a><a href="architecture.html">Architecture</a><a href="live.html">Live model</a><a href="databricks.html" aria-current="page">Databricks</a><a href="evidence.html">Evidence</a><a href="impact.html">Impact</a></nav>
+</div></header>
+<main class="wrap" id="main">
+
+<p class="eyebrow">Databricks · how the pipeline maps onto the platform</p>
+<h2>The same pipeline, written as a Databricks notebook</h2>
+<p class="lede">We turned the prototype into one notebook that builds the tables, trains the model and checks the stocking plan using Databricks building blocks: Delta tables, MLflow and Spark SQL.</p>
+<div class="card"><h3>Status, plainly</h3>
+<p><b>Written and tested on local Spark. Not yet run in a Databricks workspace.</b> Everything below is the plan for how it runs there. We would run it in a free Databricks account before claiming more.</p></div>
+<h3 class="sec">Step by step</h3>
+<div class="tblwrap wrapcell"><table>
+  <tr><th>Step</th><th>What happens</th><th>Databricks piece</th></tr>
+  <tr><td>1 Bronze</td><td>Raw asset history lands as is: 900 assets, 8 years, 7,200 rows.</td><td>Delta table</td></tr>
+  <tr><td>2 Silver</td><td>Checks for duplicates and missing values. The notebook stops if a check fails.</td><td>Delta table plus assertions</td></tr>
+  <tr><td>3 Gold</td><td>Split by time: train 2019 to 2024, test 2025 and 2026.</td><td>Delta tables</td></tr>
+  <tr><td>4 Model</td><td>Age-only baseline and gradient boosting, with settings and scores recorded for each run.</td><td>MLflow tracking</td></tr>
+  <tr><td>5 Scores</td><td>Every asset gets a failure risk, saved as a table.</td><td>Delta table</td></tr>
+  <tr><td>6 Spares</td><td>Same total spares, placed by asset count or by model risk.</td><td>PySpark</td></tr>
+  <tr><td>7 Check</td><td>Share of real failures that had a spare in the same region.</td><td>Spark SQL</td></tr>
+</table></div>
+<h3 class="sec">What the local Spark run gave</h3>
+<div class="grid g3">
+  <div class="card"><h3>Model on held-out years</h3><p>AUC <span class="big-n">0.796</span> against 0.761 for the age-only rule.</p></div>
+  <div class="card"><h3>Spread by asset count</h3><p><span class="big-n">70%</span> of failures (59 of 84) had a local spare. 31 spares unused.</p></div>
+  <div class="card"><h3>Placed by model risk</h3><p><span class="big-n">83%</span> of failures (70 of 84) had a local spare. 20 spares unused.</p></div>
+</div>
+<p class="lede">These match the Evidence page. The data is synthetic and we wrote the failure formula, so this shows the pipeline works, not real-world value.</p>
+<h3 class="sec">What Databricks would add for a client</h3>
+<div class="card"><ul>
+  <li>Governed tables, so the client controls who sees which data (Unity Catalog).</li>
+  <li>A model registry and a schedule, so retraining runs as a monitored job.</li>
+  <li>Real client tables in place of our synthetic ones. Most of the work would be here.</li>
+</ul></div>
+<h3 class="sec">Try it</h3>
+<div class="card"><ol class="steps">
+  <li><p>Make a free Databricks account (Free Edition).</p></li>
+  <li><p>Import <span class="mono">databricks_notebook.py</span> into the workspace.</p></li>
+  <li><p>Attach compute and choose Run all. It takes a few minutes.</p></li>
+</ol><p>If a step fails there, we will fix the notebook. Only the local run is verified so far.</p></div>
+
+</main>
+<footer><div class="wrap">Concept project by Charithasri Ande and Naga Rakesh Battu. All utility data, manuals, model results and storm results are synthetic. Market figures are cited on the Problem page. <a href="https://github.com/Naga-Rakesh-Battu/Asset-readiness" target="_blank" rel="noopener">Code on GitHub</a>. Site version 2026-11-24 14:55 CT.</div></footer>
+
+<script src="site.js?v=202611241455"></script>
+</body>
+</html>
